@@ -44,6 +44,7 @@ client.connect((err) => {
     orderCollection.insertOne(newOrder).then((result) => {
       console.log("raju", result);
       // res.send(result.insertedCount);
+      ////////////
     });
   });
 

@@ -21,7 +21,11 @@ const client = new MongoClient(uri, {
 });
 client.connect((err) => {
   const productCollection = client.db("emajhonMyThink").collection("product");
+  const admainCollection = client.db("emajhonMyThink").collection("admain");
   const orderCollection = client.db("emajhonMyThink").collection("order");
+  const clientReviewsCollection = client
+    .db("emajhonMyThink")
+    .collection("clientReview");
   ////////////////////////
   app.post("/addProduct", (req, res) => {
     const newEvent = req.body;
@@ -37,23 +41,73 @@ client.connect((err) => {
       res.send(items);
     });
   });
-  //////
+  //////////////
+  app.post("/addAdmain", (req, res) => {
+    const newEvent = req.body;
+    // console.log(newEvent);
+    admainCollection.insertOne(newEvent).then((result) => {
+      console.log("raju", result);
+      res.send(result.insertedCount > 0);
+    });
+  });
+
+  app.get("/ourAdmain", (req, res) => {
+    admainCollection.find().toArray((err, items) => {
+      res.send(items);
+    });
+  });
+  /////////
+  app.post("/isAdmain", (req, res) => {
+    const email = req.body.email;
+    admainCollection.find({ email: email }).toArray((err, doctors) => {
+      res.send(doctors.length > 0);
+    });
+  });
+  ////////
+
   app.post("/addOrder", (req, res) => {
     const newOrder = req.body;
     // console.log(newOrder);
     orderCollection.insertOne(newOrder).then((result) => {
       console.log("raju", result);
-      // res.send(result.insertedCount);
+      res.send(result.insertedCount > 0);
       ////////////
     });
   });
 
   app.get("/ourOrder", (req, res) => {
+    orderCollection
+      .find({ loginUserEmail: req.query.loginUserEmail })
+      .toArray((err, items) => {
+        res.send(items);
+      });
+  });
+  ///
+  app.get("/ourAllOrder", (req, res) => {
     orderCollection.find().toArray((err, items) => {
       res.send(items);
     });
   });
+  ///////////
+  app.post("/addOrdrReview", (req, res) => {
+    const newEvent = req.body;
+    // console.log("additing new event : ", newEvent);
+
+    clientReviewsCollection.insertOne(newEvent).then((result) => {
+      console.log("yo mamma", result);
+      res.send(result.insertedCount > 0);
+    });
+  });
+
+  app.get("/orderReviews", (req, res) => {
+    clientReviewsCollection.find().toArray((err, items) => {
+      res.send(items);
+    });
+  });
+  ////
 });
+
+//////////
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

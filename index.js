@@ -37,9 +37,12 @@ client.connect((err) => {
   });
 
   app.get("/ourProduct", (req, res) => {
-    productCollection.find().toArray((err, items) => {
-      res.send(items);
-    });
+    const search = req.query.search;
+    productCollection
+      .find({ name: { $regex: search } })
+      .toArray((err, items) => {
+        res.send(items);
+      });
   });
   //////////////
   app.post("/addAdmain", (req, res) => {

@@ -37,11 +37,9 @@ client.connect((err) => {
   });
 
   app.get("/ourProduct", (req, res) => {
-    productCollection
-      .find({ name: { $regex: "phone" } })
-      .toArray((err, items) => {
-        res.send(items);
-      });
+    productCollection.find().toArray((err, items) => {
+      res.send(items);
+    });
   });
   //////////////
   app.post("/addAdmain", (req, res) => {

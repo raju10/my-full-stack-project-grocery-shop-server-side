@@ -106,6 +106,15 @@ client.connect((err) => {
       res.send(items);
     });
   });
+  //=====delete===//
+  app.delete("/delete/:id", (req, res) => {
+    odersCollection
+      .deleteOne({ _id: ObjectId(req.params.id) })
+      .then((result) => {
+        console.log(result);
+      });
+    console.log(req.params.id);
+  });
   ////
 });
 

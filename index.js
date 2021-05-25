@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.static("product"));
 require("dotenv").config();
@@ -109,7 +110,7 @@ client.connect((err) => {
   //=====delete===//
   app.delete("/delete/:id", (req, res) => {
     odersCollection
-      .deleteOne({ id: ObjectID(req.params.id) })
+      .deleteOne({ _id: ObjectID(req.params.id) })
       .then((result) => {
         console.log(result);
         res.send(result.insertedCount > 0);

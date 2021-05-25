@@ -112,6 +112,7 @@ client.connect((err) => {
       .deleteOne({ _id: ObjectID(req.params.id) })
       .then((result) => {
         console.log(result);
+        res.send(result.insertedCount > 0);
       });
     console.log(req.params.id);
   });

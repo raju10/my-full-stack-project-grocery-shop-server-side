@@ -109,7 +109,8 @@ client.connect((err) => {
   });
   //=====delete===//
   app.delete("/delete/:id", (req, res) => {
-    odersCollection
+    console.log(req.params.id);
+    productCollection
       .deleteOne({ _id: ObjectID(req.params.id) })
       .then((result) => {
         console.log(result);

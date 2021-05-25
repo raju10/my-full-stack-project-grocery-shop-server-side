@@ -109,7 +109,7 @@ client.connect((err) => {
   //=====delete===//
   app.delete("/delete/:id", (req, res) => {
     odersCollection
-      .deleteOne({ _id: ObjectID(req.params.id) })
+      .deleteOne({ id: ObjectID(req.params.id) })
       .then((result) => {
         console.log(result);
         res.send(result.insertedCount > 0);

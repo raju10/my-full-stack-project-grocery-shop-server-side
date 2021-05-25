@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.static("product"));
 require("dotenv").config();
 console.log(process.env.DB_USER);
-
+const ObjectID = require("mongodb").ObjectID;
 const MongoClient = require("mongodb").MongoClient;
 const uri =
   //   "mongodb+srv://emaWatsonMyThink:ArifulIslamRaju000@cluster0.yaeov.mongodb.net/emajhonMyThink?retryWrites=true&w=majority";
@@ -109,7 +109,7 @@ client.connect((err) => {
   //=====delete===//
   app.delete("/delete/:id", (req, res) => {
     odersCollection
-      .deleteOne({ _id: ObjectId(req.params.id) })
+      .deleteOne({ _id: ObjectID(req.params.id) })
       .then((result) => {
         console.log(result);
       });

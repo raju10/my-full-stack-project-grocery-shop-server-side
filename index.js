@@ -38,6 +38,16 @@ client.connect((err) => {
   });
 
   app.get("/ourProduct", (req, res) => {
+    const search = req.query.search;
+
+    productCollection
+      .find({ catagory: { $regex: search } })
+      .toArray((err, items) => {
+        res.send(items);
+      });
+  });
+  //
+  app.get("/ourProducts", (req, res) => {
     // const search = req.query.search;
     //  { catagory: { $regex: search } }
     productCollection.find().toArray((err, items) => {

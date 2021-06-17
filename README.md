@@ -1,4 +1,4 @@
-Client-side repo :  https://github.com/raju10/my-full-stack-project-grocery-shop-client-side
+Client-side repositories :  https://github.com/raju10/my-full-stack-project-grocery-shop-client-side
 
 
 
